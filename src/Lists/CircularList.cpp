@@ -1,12 +1,12 @@
 #include <iostream>
-#include "SimpleList.h"
+#include "CircularList.h"
 
-SimpleList::SimpleList() {
+CircularList::CircularList() {
     this->root = nullptr;
     this->size = 0;
 }
 
-SimpleList::~SimpleList(){
+CircularList::~CircularList(){
     if(this->size == 1){
         delete root;
         root = nullptr;
@@ -23,7 +23,7 @@ SimpleList::~SimpleList(){
     }
 }
 
-SimpleList::SimpleList(const SimpleList &other){
+CircularList::CircularList(const CircularList &other){
     this->root = new struct Node(*other.root);
     this->size = other.size;
     struct Node* pivot = this->root;
@@ -33,7 +33,7 @@ SimpleList::SimpleList(const SimpleList &other){
     }
 }
 
-void SimpleList::AddEnd(int value){
+void CircularList::AddEnd(int value){
     struct Node* adding = new struct Node;
     adding->value = new int(value);
     if (root == nullptr){
@@ -44,11 +44,12 @@ void SimpleList::AddEnd(int value){
             pivot = pivot->next;
         }
         pivot->next = adding;
+        adding->next = root;
     }
     this->size++;
 }
 
-void SimpleList::AddStart(int value){
+void CircularList::AddStart(int value){
     struct Node* adding = new struct Node;
     adding->value = new int(value);
     adding->next = nullptr;
@@ -61,7 +62,7 @@ void SimpleList::AddStart(int value){
     this->size++;
 }
 
-bool SimpleList::DelStart(){
+bool CircularList::DelStart(){
     if(root == nullptr){
         return false;
     }else{
@@ -73,7 +74,7 @@ bool SimpleList::DelStart(){
     }
 }
 
-bool SimpleList::DelEnd(){
+bool CircularList::DelEnd(){
     if(root == nullptr){
         return false;
     }else if (root->next == nullptr) {
@@ -85,24 +86,19 @@ bool SimpleList::DelEnd(){
             prevToLast = prevToLast->next;
         }
         delete prevToLast->next;
-        prevToLast->next = nullptr;
+        prevToLast->next = root;
     }
     this->size--;
     return true;
 }
 
-bool SimpleList::AddPosition(int value, unsigned int pos){
+bool CircularList::AddPosition(int value, unsigned int pos){
     if(pos > this->size){
         return false;
     }else if(pos == 0){
-        struct Node* adding = new struct Node;
-        adding->next = nullptr;
-        adding->value = new int(value);
-        adding->next = root;
-        root = adding;
+        this->AddStart(value);
     }else{
         struct Node* adding = new struct Node;
-        adding->next = nullptr;
         adding->value = new int(value);
         struct Node* index = root;
         for(int i=0; i<(pos-1); i++){
@@ -115,18 +111,11 @@ bool SimpleList::AddPosition(int value, unsigned int pos){
     return true;
 }
 
-bool SimpleList::DelPosition(unsigned int pos){
+bool CircularList::DelPosition(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return false;
     }else if(pos == 0){
-        if(this->size == 1){
-        delete root;
-        root = nullptr;
-        }else{
-            struct Node* temp = root;
-            root = temp->next;
-            delete temp;
-        }
+        this->DelStart();
     }else{
         struct Node* nextToDeleting = root;
         for(int i=0; i<(pos-1); i++){
@@ -140,7 +129,7 @@ bool SimpleList::DelPosition(unsigned int pos){
     return true;
 }
 
-int SimpleList::getValue(unsigned int pos){
+int CircularList::getValue(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return -1000;
     }else if(pos == 0){
@@ -154,7 +143,7 @@ int SimpleList::getValue(unsigned int pos){
     }
 }
 
-void SimpleList::toString(){
+void CircularList::toString(){
     if(root == nullptr){
         std::cout << "[]" << std::endl << "Size: 0" << std::endl;
     }else{
@@ -169,7 +158,7 @@ void SimpleList::toString(){
     }
 }
 
-bool SimpleList::EditPosition(int value, unsigned int pos){
+bool CircularList::EditPosition(int value, unsigned int pos){
     if(pos > this->size or this->root == nullptr){
         return false;
     }else if(pos == 0){

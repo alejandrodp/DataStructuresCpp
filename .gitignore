@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/linux,visualstudiocode
+# Created by https://www.gitignore.io/api/linux,sublimetext,visualstudiocode
 
 ### Linux ###
 *~
@@ -16,6 +16,38 @@
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+# Package control specific files
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+
+# Sublime-github package stores a github token in this file
+# https://packagecontrol.io/packages/sublime-github
+GitHub.sublime-settings
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -24,5 +56,8 @@
 !.vscode/extensions.json
 .history
 
+#User options
+.clang_complete
 
-# End of https://www.gitignore.io/api/linux,visualstudiocode
+
+# End of https://www.gitignore.io/api/linux,sublimetext,visualstudiocode
