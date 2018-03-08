@@ -183,3 +183,7 @@ bool DoubleList::EditPosition(int value, unsigned int pos){
     }
     return true;
 }
+
+int DoubleList::getSize () {
+    return this->size;
+}

@@ -21,5 +21,6 @@ public:
     bool EditPosition(int value, unsigned int pos);
     int getValue(unsigned int pos);
     void toString();
+    int getSize();
 };
 #endif

@@ -172,3 +172,7 @@ bool CircularList::EditPosition(int value, unsigned int pos){
     }
     return true;
 }
+
+int CircularList::getSize () {
+    return this->size;
+}

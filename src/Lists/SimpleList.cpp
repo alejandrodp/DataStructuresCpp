@@ -177,3 +177,9 @@ bool SimpleList::EditPosition(int value, unsigned int pos){
     return true;
 }
 
+int SimpleList::getSize(){
+
+    return this->size;
+
+}
+
