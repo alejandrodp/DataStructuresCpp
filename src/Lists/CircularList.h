@@ -5,7 +5,7 @@ class CircularList{
 private:
     struct Node{
         struct Node* next;
-        int* value;
+        int value;
     } *root;
     unsigned int size;
 public:

@@ -36,7 +36,7 @@ DoubleList::DoubleList(const DoubleList &other){
 
 void DoubleList::AddEnd(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     if (root == nullptr){
          root = adding;
     }else{
@@ -52,7 +52,7 @@ void DoubleList::AddEnd(int value){
 
 void DoubleList::AddStart(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     if (root == nullptr){
         root = adding;
     }else{
@@ -101,14 +101,10 @@ bool DoubleList::AddPosition(int value, unsigned int pos){
     if(pos > (this->size-1) or this->size == 0){
         return false;
     }else if(pos == 0){
-        struct Node* adding = new struct Node;
-        adding->value = new int(value);
-        adding->next = root;
-        root->previous = adding;
-        root = adding;
+        this->AddStart(value);
     }else{
         struct Node* adding = new struct Node;
-        adding->value = new int(value);
+        adding->value = value;
         struct Node* elmNextToChange = root;
         for(int i=0; i<(pos-1); i++){
             elmNextToChange = elmNextToChange->next;
@@ -148,13 +144,13 @@ int DoubleList::getValue(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return -1000;
     }else if(pos == 0){
-        return *(root->value);
+        return root->value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        return *(searching->next->value);
+        return searching->next->value;
     }
 }
 
@@ -165,10 +161,10 @@ void DoubleList::toString(){
          struct Node* actual = root;
     std::cout << "[" << std::flush;
     while(actual->next != nullptr){
-        std::cout << *(actual->value) << "," << std::flush;
+        std::cout << actual->value << "," << std::flush;
         actual = actual->next;
     }
-    std::cout << *(actual->value) << "]" << std::endl;
+    std::cout << actual->value << "]" << std::endl;
     std::cout << "Size: " << this->size << std::endl;
     }
 }
@@ -177,13 +173,13 @@ bool DoubleList::EditPosition(int value, unsigned int pos){
     if(pos > (this->size-1) or this->root == nullptr){
         return false;
     }else if(pos == 0){
-        *(this->root->value) = value;
+        this->root->value = value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        *(searching->next->value) = value;
+        searching->next->value = value;
     }
     return true;
 }

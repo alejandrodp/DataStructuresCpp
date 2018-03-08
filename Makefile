@@ -1,9 +1,11 @@
 List_Lib = ./src/Lists/
-CXX = g++ -std=c++11
+CXX = g++ -std=c++11 -Wall
 TEMP = ./out/temp/
 BIN = ./out/bin/
 SRC = ./src/
-OBJS = $(TEMP)SimpleList.o $(TEMP)main.o
+OBJS = $(TEMP)BinaryTree.o $(TEMP)main.o
+
+tbt: BinaryTree.o main.o release run clean
 
 tsl: SimpleList.o main.o release run clean
 
@@ -20,6 +22,10 @@ SimpleList.o: $(List_Lib)SimpleList.cpp $(List_Lib)SimpleList.h
 DoubleList.o: $(List_Lib)DoubleList.cpp $(List_Lib)DoubleList.h
 	@$(CXX) -c $(List_Lib)DoubleList.cpp -o $(TEMP)DoubleList.o
 	@echo "DoubleList module compiled!!"
+
+BinaryTree.o: ./src/Trees/BinaryTree.cpp ./src/Trees/BinaryTree.h
+	@$(CXX) -c ./src/Trees/BinaryTree.cpp -o $(TEMP)BinaryTree.o
+	@echo "BinaryTree module compiled!!"
 
 release: $(OBJS)
 	@$(CXX) -o $(BIN)executeme $(OBJS)

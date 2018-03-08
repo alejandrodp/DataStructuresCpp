@@ -35,7 +35,7 @@ SimpleList::SimpleList(const SimpleList &other){
 
 void SimpleList::AddEnd(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     if (root == nullptr){
          root = adding;
     }else{
@@ -50,7 +50,7 @@ void SimpleList::AddEnd(int value){
 
 void SimpleList::AddStart(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     adding->next = nullptr;
     if (root == nullptr){
         root = adding;
@@ -97,13 +97,13 @@ bool SimpleList::AddPosition(int value, unsigned int pos){
     }else if(pos == 0){
         struct Node* adding = new struct Node;
         adding->next = nullptr;
-        adding->value = new int(value);
+        adding->value = value;
         adding->next = root;
         root = adding;
     }else{
         struct Node* adding = new struct Node;
         adding->next = nullptr;
-        adding->value = new int(value);
+        adding->value = value;
         struct Node* index = root;
         for(int i=0; i<(pos-1); i++){
             index = index->next;
@@ -119,14 +119,7 @@ bool SimpleList::DelPosition(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return false;
     }else if(pos == 0){
-        if(this->size == 1){
-        delete root;
-        root = nullptr;
-        }else{
-            struct Node* temp = root;
-            root = temp->next;
-            delete temp;
-        }
+        this->DelStart();
     }else{
         struct Node* nextToDeleting = root;
         for(int i=0; i<(pos-1); i++){
@@ -144,13 +137,13 @@ int SimpleList::getValue(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return -1000;
     }else if(pos == 0){
-        return *(root->value);
+        return root->value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        return *(searching->next->value);
+        return searching->next->value;
     }
 }
 
@@ -161,10 +154,10 @@ void SimpleList::toString(){
          struct Node* actual = root;
     std::cout << "[" << std::flush;
     while(actual->next != nullptr){
-        std::cout << *(actual->value) << "," << std::flush;
+        std::cout << actual->value << "," << std::flush;
         actual = actual->next;
     }
-    std::cout << *(actual->value) << "]" << std::endl;
+    std::cout << actual->value << "]" << std::endl;
     std::cout << "Size: " << this->size << std::endl;
     }
 }
@@ -173,13 +166,14 @@ bool SimpleList::EditPosition(int value, unsigned int pos){
     if(pos > this->size or this->root == nullptr){
         return false;
     }else if(pos == 0){
-        *(this->root->value) = value;
+        this->root->value = value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        *(searching->next->value) = value;
+        searching->next->value = value;
     }
     return true;
 }
+

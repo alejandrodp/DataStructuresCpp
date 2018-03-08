@@ -35,7 +35,7 @@ CircularList::CircularList(const CircularList &other){
 
 void CircularList::AddEnd(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     if (root == nullptr){
          root = adding;
     }else{
@@ -51,7 +51,7 @@ void CircularList::AddEnd(int value){
 
 void CircularList::AddStart(int value){
     struct Node* adding = new struct Node;
-    adding->value = new int(value);
+    adding->value = value;
     adding->next = nullptr;
     if (root == nullptr){
         root = adding;
@@ -99,7 +99,7 @@ bool CircularList::AddPosition(int value, unsigned int pos){
         this->AddStart(value);
     }else{
         struct Node* adding = new struct Node;
-        adding->value = new int(value);
+        adding->value = value;
         struct Node* index = root;
         for(int i=0; i<(pos-1); i++){
             index = index->next;
@@ -133,13 +133,13 @@ int CircularList::getValue(unsigned int pos){
     if(pos > this->size or this->size == 0){
         return -1000;
     }else if(pos == 0){
-        return *(root->value);
+        return root->value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        return *(searching->next->value);
+        return searching->next->value;
     }
 }
 
@@ -150,10 +150,10 @@ void CircularList::toString(){
          struct Node* actual = root;
     std::cout << "[" << std::flush;
     while(actual->next != nullptr){
-        std::cout << *(actual->value) << "," << std::flush;
+        std::cout << actual->value << "," << std::flush;
         actual = actual->next;
     }
-    std::cout << *(actual->value) << "]" << std::endl;
+    std::cout << actual->value << "]" << std::endl;
     std::cout << "Size: " << this->size << std::endl;
     }
 }
@@ -162,13 +162,13 @@ bool CircularList::EditPosition(int value, unsigned int pos){
     if(pos > this->size or this->root == nullptr){
         return false;
     }else if(pos == 0){
-        *(this->root->value) = value;
+        this->root->value = value;
     }else{
         struct Node* searching = root;
         for(int i=0; i<(pos-1); i++){
             searching = searching->next;
         }
-        *(searching->next->value) = value;
+        searching->next->value = value;
     }
     return true;
 }

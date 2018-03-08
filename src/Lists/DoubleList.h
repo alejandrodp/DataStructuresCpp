@@ -6,7 +6,7 @@ private:
     struct Node{
         struct Node* next;
         struct Node* previous;
-        int* value;
+        int value;
     } *root;
     unsigned int size;
 public:
